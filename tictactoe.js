@@ -47,17 +47,13 @@ const correctedInput = function(position){
 const horizontalWin = function(){
   tictactoeMatrix.forEach((row) => {
    let win = row.reduce((acc,next)=>{
-     
      return acc += next;
     },"")
     console.log("win",win);
     if(win === playerToken + "|" + playerToken + "|" + playerToken){
-      
       return true;
-    } 
-   
+    }   
   })
-   console.log("no winner yet");
 }
 
 const verticalWin = function(){
@@ -69,7 +65,6 @@ const verticalWin = function(){
       return true;
     };
   }
- 
 }
 const detectWinner = function(){
   if(horizontalWin())  console.log(playerToken + " wins");
@@ -85,10 +80,7 @@ nextTurn();
 function onErr(err) {console.log(err); return; }
 const placePosition = function(position){
   if(position === "exit") return;
-  // console.log('correctedInput',correctedInput(position))
   let correctIndex = correctedInput(position);
-  console.log("cI",correctIndex);
-
   tictactoeMatrix[correctIndex[0]][correctIndex[2]] = playerToken;
   if(count > 4){  detectWinner()};
   playerToken === "X" ? playerToken = "O" : playerToken = "X";
@@ -101,5 +93,4 @@ const placePosition = function(position){
   } else {
     return "Game Over!";
   } 
-  
 }
