@@ -8,7 +8,7 @@ let tictactoeMatrix = [
 
 let exampleTictactoeMatrix = [
   [" ","|"," ","|"," "],
-  [" ","|","X","|"," "],
+  ["X","|"," ","|"," "],
   [" ","|"," ","|"," "],
 ];
 
@@ -44,8 +44,37 @@ const correctedInput = function(position){
  
   return xAxis + ',' + yAxis;
 }
+const horizontalWin = function(){
+  tictactoeMatrix.forEach((row) => {
+   let win = row.reduce((acc,next)=>{
+     
+     return acc += next;
+    },"")
+    console.log("win",win);
+    if(win === playerToken + "|" + playerToken + "|" + playerToken){
+      
+      return true;
+    } 
+   
+  })
+   console.log("no winner yet");
+}
 
-
+const verticalWin = function(){
+  let win = playerToken + playerToken + playerToken;
+  
+  for(let i = 0; i < tictactoeMatrix.length; i++){
+    if(tictactoeMatrix[0][i] + tictactoeMatrix[1][i] + tictactoeMatrix[2][i] === win){
+      console.log(tictactoeMatrix[0][i] + tictactoeMatrix[1][i] + tictactoeMatrix[2][i]);
+      return true;
+    };
+  }
+ 
+}
+const detectWinner = function(){
+  if(horizontalWin())  console.log(playerToken + " wins");
+  if(verticalWin()) console.log(playerToken + " wins");
+}
 console.log("Example input: \n" + " 1,2");
 console.log("Example output: \n" + exampleMatrix);
 console.log("Game Start! \n" + "********************")
@@ -61,10 +90,12 @@ const placePosition = function(position){
   console.log("cI",correctIndex);
 
   tictactoeMatrix[correctIndex[0]][correctIndex[2]] = playerToken;
+  if(count > 4){  detectWinner()};
   playerToken === "X" ? playerToken = "O" : playerToken = "X";
   renderMatrix =  "   1   2   3 \n" + "1  " + tictactoeMatrix[0].join(' ') + "\n" + "   __________  \n" + "2  " + tictactoeMatrix[1].join(' ') + " \n" + "   __________ \n" + "3  " + tictactoeMatrix[2].join(' ');
   console.log(renderMatrix);
   count ++;
+ 
   if(count < 10){
     nextTurn()
   } else {
